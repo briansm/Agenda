@@ -18,8 +18,16 @@ class ContactBook:
         self._contacts.append(contact)
 
     def show_all(self):
+    #---------iteracion  que imprime cada contacto agregado con add()
         for contact in self._contacts:
             self._print_contact(contact)
+
+    def delete(self,nombre):
+        for idx,contact in enumerate(self._contacts):
+            if contact.nombre.lower()==nombre.lower():
+                del self._contacts[idx]
+                break
+
 
     def _print_contact(self,contact):
         print("-------*-------*------*-----*-----*----*---")
@@ -60,7 +68,8 @@ def run():
         elif opcion==3:
             print("Buscando...")
         elif opcion==4:
-            print("Eliminando...")
+            nombre=str(raw_input("Nombre Contacto a ELIMINAR: "))
+            contact_book.delete(nombre)
         elif opcion==5:
             contact_book.show_all()
         elif opcion==6:
