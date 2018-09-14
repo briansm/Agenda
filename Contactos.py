@@ -1,12 +1,12 @@
-# -*- Coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 class Contacts:
 #-----------Constructor-----------------
     def __init__(self, nombre, correo, telefono):
 #-------------_nombre es equivalente a variable privada
-        self._nombre = nombre
-        self._correo = correo
-        self._telefono = telefono
+        self.nombre = nombre
+        self.correo = correo
+        self.telefono = telefono
 
 class ContactBook:
 
@@ -14,8 +14,19 @@ class ContactBook:
         self._contacts=[]
 
     def add(self,nombre,correo,telefono):
-        print("nombre: {} correo: {} telefono: {}".format(nombre,correo,telefono))
+        contact=Contacts(nombre,correo,telefono)
+        self._contacts.append(contact)
 
+    def show_all(self):
+        for contact in self._contacts:
+            self._print_contact(contact)
+
+    def _print_contact(self,contact):
+        print("-------*-------*------*-----*-----*----*---")
+        print("Nombre: {}".format(contact.nombre))
+        print("Correo: {}".format(contact.correo))
+        print("Teléfono: {}".format(contact.telefono))
+        print("-------*-------*------*-----*-----*----*---")
 
 
 
@@ -42,9 +53,8 @@ def run():
             nombre=str(raw_input("Nombre Contacto: "))
             correo=str(raw_input("Correo Electronico: "))
             telefono=int(input("Numero de Telefono: "))
-            contact_book.add(nombre,correo, telefono)
-            print("Agregando...")
-            
+            contact_book.add(nombre,correo,telefono)
+
         elif opcion==2:
             print("Actualizando...")
         elif opcion==3:
@@ -52,7 +62,7 @@ def run():
         elif opcion==4:
             print("Eliminando...")
         elif opcion==5:
-            print("Mostrando...")
+            contact_book.show_all()
         elif opcion==6:
             print("Saliendo")
             break
