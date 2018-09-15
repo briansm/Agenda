@@ -26,8 +26,16 @@ class ContactBook:
         for idx,contact in enumerate(self._contacts):
             if contact.nombre.lower()==nombre.lower():
                 del self._contacts[idx]
+                print("CONTACTO ELIMINADO")
                 break
 
+    def search(self,nombre):
+        for contact in self._contacts:
+            if contact.nombre.lower()==nombre.lower():
+                self._print_contact(contact)
+                break
+        else:
+            print("NO SE ENCONTRO")
 
     def _print_contact(self,contact):
         print("-------*-------*------*-----*-----*----*---")
@@ -66,7 +74,8 @@ def run():
         elif opcion==2:
             print("Actualizando...")
         elif opcion==3:
-            print("Buscando...")
+            nombre=str(raw_input("Nombre Contacto a BUSCAR: "))
+            contact_book.search(nombre)
         elif opcion==4:
             nombre=str(raw_input("Nombre Contacto a ELIMINAR: "))
             contact_book.delete(nombre)
