@@ -37,6 +37,20 @@ class ContactBook:
         else:
             print("NO SE ENCONTRO")
 
+    def update(self,nombre):
+
+        for idx,contact in enumerate(self._contacts):
+            if contact.nombre.lower()==nombre.lower():
+                contact.nombre=str(raw_input("Nuevo nombre: "))
+                contact.correo=str(raw_input("Nuevo correo: "))
+                contact.telefono=int(input("Nuevo telefono: "))
+                self._contacts[idx]=contact
+                break
+        else:
+            print("NO SE ENCONTRO")
+
+
+
     def _print_contact(self,contact):
         print("-------*-------*------*-----*-----*----*---")
         print("Nombre: {}".format(contact.nombre))
@@ -72,7 +86,8 @@ def run():
             contact_book.add(nombre,correo,telefono)
 
         elif opcion==2:
-            print("Actualizando...")
+            nombre=str(raw_input("Nombre Contacto a Actualizar: "))
+            contact_book.update(nombre)
         elif opcion==3:
             nombre=str(raw_input("Nombre Contacto a BUSCAR: "))
             contact_book.search(nombre)
