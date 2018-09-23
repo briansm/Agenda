@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import csv
 
 class Contacts:
 #-----------Constructor-----------------
@@ -16,6 +17,15 @@ class ContactBook:
     def add(self,nombre,correo,telefono):
         contact=Contacts(nombre,correo,telefono)
         self._contacts.append(contact)
+        self._save()
+
+    def _save(self):
+        with open('contacts.csv', 'w') as f:
+            writer = csv.writer(f)
+            writer.writerow( ('name', 'phone', 'email') )
+
+            for contact in self._contacts:
+                writer.writerow( (contact.nombre, contact.correo, contact.telefono) )
 
     def show_all(self):
     #---------iteracion  que imprime cada contacto agregado con add()
@@ -26,6 +36,7 @@ class ContactBook:
         for idx,contact in enumerate(self._contacts):
             if contact.nombre.lower()==nombre.lower():
                 del self._contacts[idx]
+                self._save()
                 print("CONTACTO ELIMINADO")
                 break
 
@@ -63,6 +74,15 @@ class ContactBook:
 def run():
 #--------instancia del objeto COntactBook
     contact_book= ContactBook()
+
+    with open('contacts.csv','r') as f:
+        reader=csv.reader(f)
+        for idx,row in enumerate(reader):
+            if idx==0:
+                continue
+
+            contact_book.add(row[0], row[1], row[2]) 
+
 
     while True:
         opcion=int(input('''
